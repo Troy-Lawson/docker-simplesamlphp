@@ -27,14 +27,16 @@ RUN rm -rf /var/simplesamlphp
 RUN git clone https://github.com/simplesamlphp/simplesamlphp.git /var/simplesamlphp
 
 RUN mkdir -p /var/simplesamlphp/config && cp -r /var/simplesamlphp/config-templates/* /var/simplesamlphp/config/
+RUN rm -f /var/simplesamlphp/config/config.php
 RUN mkdir -p /var/simplesamlphp/metadata && cp -r /var/simplesamlphp/metadata-templates/* /var/simplesamlphp/metadata/
 
-ADD ./etc/simplesamlphp/config/config.php /var/simplesamlphp/config/config.php
+# ADD ./etc/simplesamlphp/config/config.php /var/simplesamlphp/config/config.php
 ADD ./etc/apache2/sites-enabled/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
 ####################
 # PKI
-RUN mkdir -p /var/simplesamlphp/cert && openssl req -x509 -batch -nodes -newkey rsa:2048 -keyout /var/simplesamlphp/cert/saml.pem -out /var/simplesamlphp/cert/saml.crt
+RUN mkdir -p /var/simplesamlphp/cert 
+# && openssl req -x509 -batch -nodes -newkey rsa:2048 -keyout /var/simplesamlphp/cert/saml.pem -out /var/simplesamlphp/cert/saml.crt
 
 ##########
 #Permissions
